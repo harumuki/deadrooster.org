@@ -1,16 +1,16 @@
 GIT
   remote: https://github.com/dirtyhenry/buckygem.git
-  revision: f6a9dc42c9cd555d74eda964558452b2d0726138
+  revision: 7b3eb86fcd7c440027603489cee2b0fb3a16bbc4
   branch: master
   specs:
-    buckygem (0.5.0)
+    buckygem (0.6.0)
       i18n
       liquid (~> 4.0)
       mini_magick
 
 GIT
   remote: https://github.com/dirtyhenry/kids.git
-  revision: 3f4956a84754b2357a83651413459edf89dfcae6
+  revision: 3ccf2f78e34f236d515b5b97c944a9b0fb11ff0c
   branch: master
   specs:
     kids (0.2.0)
@@ -56,7 +56,7 @@ GEM
       ruby-enum (~> 0.5)
     concurrent-ruby (1.1.7)
     dotenv (2.7.6)
-    em-websocket (0.5.1)
+    em-websocket (0.5.2)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     eventmachine (1.2.7)
@@ -128,10 +128,10 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    regexp_parser (1.7.1)
+    regexp_parser (1.8.0)
     rexml (3.2.4)
     rouge (3.23.0)
-    rubocop (0.91.0)
+    rubocop (0.91.1)
       parallel (~> 1.10)
       parser (>= 2.7.1.1)
       rainbow (>= 2.2.2, < 4.0)
@@ -140,7 +140,7 @@ GEM
       rubocop-ast (>= 0.4.0, < 1.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (0.4.0)
+    rubocop-ast (0.4.2)
       parser (>= 2.7.1.4)
     ruby-enum (0.8.0)
       i18n
