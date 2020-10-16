@@ -33,6 +33,7 @@ url: "https://deadrooster.org" # the base hostname & protocol for your site, e.g
 twitter_username: dead__rooster
 github_username: DeadRooster
 markdown: CommonMark
+port: 4001
 
 # Build settings
 theme: kids
