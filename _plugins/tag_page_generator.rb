@@ -1,18 +1,29 @@
-require "i18n"
+# frozen_string_literal: true
+
+require 'i18n'
+
+def slugify(string)
+  I18n.available_locales = %i[en fr]
+  I18n.transliterate(string)
+      .downcase
+      .strip
+      .gsub(' ', '-')
+      .gsub(/[^\w-]/, '')
+end
 
 module Jekyll
+  # A generator plugin creating one new page per tag found in the site.
   class TagPageGenerator < Generator
     safe true
 
     def generate(site)
-      if site.layouts.key? 'tag_index'
-        dir = site.config['tag_dir'] || 'tags'
-        site.tags.each_key do |tag|
-          # Slug from https://stackoverflow.com/questions/4308377/ruby-post-title-to-slug
-          I18n.available_locales = [:en, :fr]
-          tag_slug = I18n.transliterate(tag).downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-          site.pages << TagPage.new(site, site.source, File.join(dir, tag_slug), tag)
-        end
+      return unless site.layouts.key? 'tag_index'
+
+      I18n.available_locales = %i[en fr]
+      dir = site.config['tag_dir'] || 'tags'
+      site.tags.each_key do |tag|
+        # Slug from https://stackoverflow.com/questions/4308377/ruby-post-title-to-slug
+        site.pages << TagPage.new(site, site.source, File.join(dir, slugify(tag)), tag)
       end
     end
   end
@@ -25,12 +36,12 @@ module Jekyll
       @dir  = dir
       @name = 'index.html'
 
-      self.process(@name)
-      self.read_yaml(File.join(base, '_layouts'), 'tag_index.html')
-      self.data['tag'] = tag
+      process(@name)
+      read_yaml(File.join(base, '_layouts'), 'tag_index.html')
+      data['tag'] = tag
 
       tag_title_prefix = site.config['tag_title_prefix'] || 'Tag: '
-      self.data['title'] = "#{tag_title_prefix}#{tag}"
+      data['title'] = "#{tag_title_prefix}#{tag}"
     end
   end
 end

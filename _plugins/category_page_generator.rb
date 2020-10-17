@@ -1,18 +1,28 @@
-require "i18n"
+# frozen_string_literal: true
+
+require 'i18n'
+
+def slugify(string)
+  I18n.available_locales = %i[en fr]
+  I18n.transliterate(string)
+      .downcase
+      .strip
+      .gsub(' ', '-')
+      .gsub(/[^\w-]/, '')
+end
 
 module Jekyll
+  # A generator plugin creating one new page per category found in the site.
   class CategoryPageGenerator < Generator
     safe true
 
     def generate(site)
-      if site.layouts.key? 'category_index'
-        dir = site.config['category_dir'] || 'categories'
-        site.categories.each_key do |category|
-          # Slug from https://stackoverflow.com/questions/4308377/ruby-post-title-to-slug
-          I18n.available_locales = [:en, :fr]
-          category_slug = I18n.transliterate(category).downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-          site.pages << CategoryPage.new(site, site.source, File.join(dir, category_slug), category)
-        end
+      return unless site.layouts.key? 'category_index'
+
+      dir = site.config['category_dir'] || 'categories'
+      site.categories.each_key do |category|
+        # Slug from https://stackoverflow.com/questions/4308377/ruby-post-title-to-slug
+        site.pages << CategoryPage.new(site, site.source, File.join(dir, slugify(category)), category)
       end
     end
   end
@@ -25,12 +35,12 @@ module Jekyll
       @dir  = dir
       @name = 'index.html'
 
-      self.process(@name)
-      self.read_yaml(File.join(base, '_layouts'), 'category_index.html')
-      self.data['category'] = category
+      process(@name)
+      read_yaml(File.join(base, '_layouts'), 'category_index.html')
+      data['category'] = category
 
       category_title_prefix = site.config['category_title_prefix'] || 'Category: '
-      self.data['title'] = "#{category_title_prefix}#{category}"
+      data['title'] = "#{category_title_prefix}#{category}"
     end
   end
 end
