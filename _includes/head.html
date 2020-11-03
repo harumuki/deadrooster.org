@@ -19,5 +19,7 @@
   {%- endif -%}
 
   <!-- Plausible -->
-  <script async defer data-domain="deadrooster.org" src="https://plausible.io/js/plausible.js"></script>
+  {%- if jekyll.environment == 'production' -%}
+    <script async defer data-domain="deadrooster.org" src="https://plausible.io/js/plausible.js"></script>
+  {%- endif -%}
 </head>
