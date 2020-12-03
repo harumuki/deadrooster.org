@@ -10,7 +10,6 @@ layout: default
 {%- assign posts_by_month = site.tags[page.tag] | group_by_exp: "item", "item.date | truncate: 7, ''" -%}
 
   {%- if posts_by_month.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
     <ul class="post-list">
       {%- for month in posts_by_month -%}
       <li>
@@ -27,12 +26,6 @@ layout: default
       </li>
       {%- endfor -%}
     </ul>
-
-    <p class="feed-subscribe">
-      <a href="{{ 'feed.xml' | relative_url }}">
-        <span>Subscribe to our feed</span>
-      </a>
-    </p>
   {%- endif -%}
 
 </div>

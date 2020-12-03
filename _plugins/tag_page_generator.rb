@@ -30,6 +30,7 @@ module Jekyll
 
   # A Page subclass used in the `TagPageGenerator`
   class TagPage < Page
+    # rubocop:disable Lint/MissingSuper
     def initialize(site, base, dir, tag)
       @site = site
       @base = base
@@ -43,5 +44,15 @@ module Jekyll
       tag_title_prefix = site.config['tag_title_prefix'] || 'Tag: '
       data['title'] = "#{tag_title_prefix}#{tag}"
     end
+    # rubocop:enable Lint/MissingSuper
+  end
+
+  # A Liquid filter to generate the path of a tag resource.
+  module TagLinkFilter
+    def tag_link(input)
+      "/tags/#{slugify(input)}"
+    end
   end
 end
+
+Liquid::Template.register_filter(Jekyll::TagLinkFilter)
