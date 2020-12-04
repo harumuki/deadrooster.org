@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'i18n'
+require 'liquid'
 
 def slugify(string)
   I18n.available_locales = %i[en fr]
@@ -29,6 +30,7 @@ module Jekyll
 
   # A Page subclass used in the `CategoryPageGenerator`
   class CategoryPage < Page
+    # rubocop:disable Lint/MissingSuper
     def initialize(site, base, dir, category)
       @site = site
       @base = base
@@ -43,4 +45,14 @@ module Jekyll
       data['title'] = "#{category_title_prefix}#{category}"
     end
   end
+  # rubocop:enable Lint/MissingSuper
+
+  # A Liquid filter to generate the path of a category resource.
+  module CategoryLinkFilter
+    def category_link(input)
+      "/categories/#{slugify(input)}"
+    end
+  end
 end
+
+Liquid::Template.register_filter(Jekyll::CategoryLinkFilter)
