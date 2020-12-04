@@ -2,7 +2,6 @@
 
 source 'https://rubygems.org'
 gem 'github-pages'
-ruby '2.6.3'
 
 gem 'jekyll', '~> 4.0.0'
 
