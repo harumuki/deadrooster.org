@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 gem 'github-pages'
 
-gem 'jekyll', '~> 4.0.0'
+gem 'jekyll', '~> 4.0.1'
 
 # This is a lightweight Jekyll theme we want to use.
 gem 'kids',
